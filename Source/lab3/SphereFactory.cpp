@@ -80,8 +80,8 @@ void ASphereFactory::Stop()
 			{
 				// Проверка нахождения сферы в одном из фильтров по формуле проверки, находится ли точка внутри треугольника
 				FVector p1(0, 0, 0);
-				FVector p2(cos(2 * PI * (double)i / cylinder_obj->RadialVertices) * cylinder_obj->InnerCylinderD / 2, sin(2 * PI * (double)i / cylinder_obj->RadialVertices) * cylinder_obj->InnerCylinderD / 2, 0);
-				FVector p3(cos(2 * PI * (double)(i + 1) / cylinder_obj->RadialVertices) * cylinder_obj->InnerCylinderD / 2, sin(2 * PI * (double)(i + 1) / cylinder_obj->RadialVertices) * cylinder_obj->InnerCylinderD / 2, 0);
+				FVector p2(cos(2 * PI * (double)i / cylinder_obj->RadialVertices) * cylinder_obj->OuterCylinderD / 2, sin(2 * PI * (double)i / cylinder_obj->RadialVertices) * cylinder_obj->OuterCylinderD / 2, 0);
+				FVector p3(cos(2 * PI * (double)(i + 1) / cylinder_obj->RadialVertices) * cylinder_obj->OuterCylinderD / 2, sin(2 * PI * (double)(i + 1) / cylinder_obj->RadialVertices) * cylinder_obj->OuterCylinderD / 2, 0);
 				p1 += cylinder_pos;
 				p2 += cylinder_pos;
 				p3 += cylinder_pos;
@@ -92,10 +92,29 @@ void ASphereFactory::Stop()
 
 				if (
 					res1.Z <= 0 && res2.Z <= 0 && res3.Z <= 0 &&
-					sphere_z < cylinder_z + cylinder_obj->CylinderH && sphere_z > cylinder_z + cylinder_obj->CylinderDelta
+					sphere_z < cylinder_z + cylinder_obj->CylinderH && sphere_z > cylinder_z
 					)
 				{
 					in_cylinder = true;
+
+					p1 = FVector(0, 0, 0);
+					p2 = FVector(cos(2 * PI * (double)i / cylinder_obj->RadialVertices) * cylinder_obj->InnerCylinderD / 2, sin(2 * PI * (double)i / cylinder_obj->RadialVertices) * cylinder_obj->InnerCylinderD / 2, 0);
+					p3 = FVector(cos(2 * PI * (double)(i + 1) / cylinder_obj->RadialVertices) * cylinder_obj->InnerCylinderD / 2, sin(2 * PI * (double)(i + 1) / cylinder_obj->RadialVertices) * cylinder_obj->InnerCylinderD / 2, 0);
+					p1 += cylinder_pos;
+					p2 += cylinder_pos;
+					p3 += cylinder_pos;
+
+					res1 = FVector::CrossProduct(p1 - p2, sphere_pos - p2);
+					res2 = FVector::CrossProduct(p3 - p1, sphere_pos - p1);
+					res3 = FVector::CrossProduct(p2 - p3, sphere_pos - p3);
+
+					if (
+						res1.Z <= 0 && res2.Z <= 0 && res3.Z <= 0 &&
+						sphere_z < cylinder_z + cylinder_obj->CylinderH && sphere_z > cylinder_z + cylinder_obj->CylinderDelta
+						)
+					{
+						in_cylinder = false;
+					}
 				}
 			}
 		}

@@ -61,8 +61,8 @@ void AACylinderFilter::CreateMesh(float innerCylinderD, float outerCylinderD, fl
 		vertices.Add(FVector(cos(2 * PI * (double)(i + 1) / radialVertices) * outerCylinderD / 2, sin(2 * PI * (double)(i + 1) / radialVertices) * outerCylinderD / 2, 0));
 
 		Triangles.Add(vertices_count);
-		Triangles.Add(vertices_count + 1);
 		Triangles.Add(vertices_count + 2);
+		Triangles.Add(vertices_count + 1);
 
 		UV0.Add(FVector2D(0, 0));
 		UV0.Add(FVector2D(10, 0));
@@ -82,8 +82,8 @@ void AACylinderFilter::CreateMesh(float innerCylinderD, float outerCylinderD, fl
 		vertices.Add(FVector(cos(2 * PI * (double)(i + 1) / radialVertices) * innerCylinderD / 2, sin(2 * PI * (double)(i + 1) / radialVertices) * innerCylinderD / 2, cylinderDelta));
 
 		Triangles.Add(vertices_count);
-		Triangles.Add(vertices_count + 2);
 		Triangles.Add(vertices_count + 1);
+		Triangles.Add(vertices_count + 2);
 
 		UV0.Add(FVector2D(0, 0));
 		UV0.Add(FVector2D(10, 0));
@@ -104,12 +104,12 @@ void AACylinderFilter::CreateMesh(float innerCylinderD, float outerCylinderD, fl
 		vertices.Add(FVector(cos(2 * PI * (double)(i + 1) / radialVertices) * outerCylinderD / 2, sin(2 * PI * (double)(i + 1) / radialVertices) * outerCylinderD / 2, cylinderH));
 
 		Triangles.Add(vertices_count);
-		Triangles.Add(vertices_count + 2);
 		Triangles.Add(vertices_count + 1);
+		Triangles.Add(vertices_count + 2);
 
 		Triangles.Add(vertices_count + 2);
-		Triangles.Add(vertices_count + 3);
 		Triangles.Add(vertices_count + 1);
+		Triangles.Add(vertices_count + 3);
 
 		UV0.Add(FVector2D(10, 0));
 		UV0.Add(FVector2D(0, 0));
@@ -128,34 +128,6 @@ void AACylinderFilter::CreateMesh(float innerCylinderD, float outerCylinderD, fl
 	for (int i = 0; i < radialVertices; i++) {
 		vertices.Add(FVector(cos(2 * PI * (double)i / radialVertices) * innerCylinderD / 2, sin(2 * PI * (double)i / radialVertices) * innerCylinderD / 2, cylinderDelta));
 		vertices.Add(FVector(cos(2 * PI * (double)(i + 1) / radialVertices) * innerCylinderD / 2, sin(2 * PI * (double)(i + 1) / radialVertices) * innerCylinderD / 2, cylinderDelta));
-		vertices.Add(FVector(cos(2 * PI * (double)i / radialVertices) * innerCylinderD / 2, sin(2 * PI * (double)i / radialVertices) * innerCylinderD / 2, cylinderH));
-		vertices.Add(FVector(cos(2 * PI * (double)(i + 1) / radialVertices) * innerCylinderD / 2, sin(2 * PI * (double)(i + 1) / radialVertices) * innerCylinderD / 2, cylinderH));
-
-		Triangles.Add(vertices_count);
-		Triangles.Add(vertices_count + 1);
-		Triangles.Add(vertices_count + 2);
-
-		Triangles.Add(vertices_count + 2);
-		Triangles.Add(vertices_count + 1);
-		Triangles.Add(vertices_count + 3);
-
-		UV0.Add(FVector2D(10, 0));
-		UV0.Add(FVector2D(0, 0));
-		UV0.Add(FVector2D(10, 10));
-		UV0.Add(FVector2D(0, 10));
-
-		vertexColors.Add(FLinearColor(0.75, 0.75, 0.75, 1.0));
-		vertexColors.Add(FLinearColor(0.75, 0.75, 0.75, 1.0));
-		vertexColors.Add(FLinearColor(0.75, 0.75, 0.75, 1.0));
-		vertexColors.Add(FLinearColor(0.75, 0.75, 0.75, 1.0));
-
-		vertices_count += 4;
-	}
-
-	/* Generate top border */
-	for (int i = 0; i < radialVertices; i++) {
-		vertices.Add(FVector(cos(2 * PI * (double)i / radialVertices) * outerCylinderD / 2, sin(2 * PI * (double)i / radialVertices) * outerCylinderD / 2, cylinderH));
-		vertices.Add(FVector(cos(2 * PI * (double)(i + 1) / radialVertices) * outerCylinderD / 2, sin(2 * PI * (double)(i + 1) / radialVertices) * outerCylinderD / 2, cylinderH));
 		vertices.Add(FVector(cos(2 * PI * (double)i / radialVertices) * innerCylinderD / 2, sin(2 * PI * (double)i / radialVertices) * innerCylinderD / 2, cylinderH));
 		vertices.Add(FVector(cos(2 * PI * (double)(i + 1) / radialVertices) * innerCylinderD / 2, sin(2 * PI * (double)(i + 1) / radialVertices) * innerCylinderD / 2, cylinderH));
 
